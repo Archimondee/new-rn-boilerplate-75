@@ -77,3 +77,10 @@ yarn-error.log
 .expo
 dist/
 web-build/
+.env
+.env.development
+.env.staging
+.env.production
+
+# react-native-config codegen
+ios/tmp.xcconfig
