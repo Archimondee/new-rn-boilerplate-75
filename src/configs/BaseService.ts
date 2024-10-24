@@ -12,7 +12,7 @@ const getAccessToken = async (): Promise<string | null> => {
 const refreshToken = async (): Promise<string | null> => {
   try {
     const refreshToken = await AsyncStorage.getItem('refreshToken');
-    const response = await axios.post(`${Config.API_URL}/refresh-token`, {
+    const response = await axios.post(`${Config.API_URL}/${Config.API_VERSION}/refresh-token`, {
       refreshToken,
     });
 
@@ -21,14 +21,13 @@ const refreshToken = async (): Promise<string | null> => {
 
     return newAccessToken;
   } catch (error) {
-    console.error('Token refresh error:', error);
     throw error;
   }
 };
 
 // Create Axios instance
 const axiosInstance = axios.create({
-  baseURL: Config.API_URL,
+  baseURL: `${Config.API_URL}/${Config.API_VERSION}`,
   timeout: 310000,
   headers: {
     Accept: "application/json",
@@ -75,7 +74,6 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError);
         return Promise.reject(refreshError);
       }
     }
