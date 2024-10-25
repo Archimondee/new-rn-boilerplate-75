@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import qs from 'query-string'
 import Config from 'react-native-config';
@@ -87,9 +87,10 @@ axiosInstance.interceptors.response.use(
 export const apiGet = async <T>(endpoint: string, params: object = {}): Promise<T> => {
   try {
     const response = await axiosInstance.get<T>(endpoint, { params });
+
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as AxiosError);
     throw error;
   }
 };
@@ -99,7 +100,7 @@ export const apiPost = async <T>(endpoint: string, data: object): Promise<T> => 
     const response = await axiosInstance.post<T>(endpoint, data);
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as AxiosError);
     throw error;
   }
 };
@@ -109,7 +110,7 @@ export const apiPut = async <T>(endpoint: string, data: object): Promise<T> => {
     const response = await axiosInstance.put<T>(endpoint, data);
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as AxiosError);
     throw error;
   }
 };
@@ -119,14 +120,14 @@ export const apiDelete = async <T>(endpoint: string): Promise<T> => {
     const response = await axiosInstance.delete<T>(endpoint);
     return response.data;
   } catch (error) {
-    handleError(error);
+    handleError(error as AxiosError);
     throw error;
   }
 };
 
 // Centralized error handler
-const handleError = (error: any) => {
-  console.error('API error:', error);
+const handleError = (error: AxiosError) => {
+  console.log('Error', error)
   // You can handle different types of errors here, such as showing notifications
   // or redirecting to login if the token is invalid.
 };

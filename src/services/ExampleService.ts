@@ -3,7 +3,7 @@ import { apiGet } from 'configs/BaseService';
 import { PaginatedResponse } from 'types/ExampleTypes';
 
 const fetchRandomUser = async (page: number, limit: number): Promise<PaginatedResponse> => {
-  return await apiGet<PaginatedResponse>(`/public/randomusers?page=${page}&limit=${limit}`);
+  return await apiGet<PaginatedResponse>(`/publicss/randomusers?page=${page}&limit=${limit}`);
 };
 
 export const useGetRandomUser = (page: number = 1, limit: number = 10, options?: QueryObserverOptions<PaginatedResponse>) => {
@@ -11,7 +11,7 @@ export const useGetRandomUser = (page: number = 1, limit: number = 10, options?:
     queryKey: ['random-users', page, limit],
     queryFn: () => fetchRandomUser(page, limit),
     placeholderData: (prev) => prev,
-    staleTime: 1000 * 60 * 5,
+    //staleTime: 1000 * 60 * 5,
     ...options
   })
 };

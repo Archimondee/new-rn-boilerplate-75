@@ -9,7 +9,7 @@ import AppNavigator from "navigations/AppNavigator";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      //staleTime: 1000 * 60 * 5, // 5 minutes
       refetchInterval: false,
       refetchOnWindowFocus: false,
       retry: 1,
