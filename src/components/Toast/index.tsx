@@ -1,15 +1,14 @@
-import Text from "components/Text";
-import React from "react";
-import type { ImageSourcePropType } from "react-native";
-import { View, StyleSheet, Platform, Image } from "react-native";
-import Toast from "react-native-root-toast";
-import { scaledHorizontal, scaledVertical } from "utils/ScaledService";
+import TextCustom from 'components/Text';
+import React from 'react';
+import {View, StyleSheet, Platform, Image} from 'react-native';
+import Toast from 'react-native-root-toast';
+import {scaledHorizontal, scaledVertical} from 'utils/ScaledService';
 
 export interface ToastComponentProps {
   visible: boolean;
   text: string;
   withIcon?: boolean;
-  icon?: ImageSourcePropType;
+  icon?: any;
   onShown?: () => void;
   onHide?: () => void;
 }
@@ -26,41 +25,38 @@ const ToastComponent = ({
     <Toast
       visible={visible}
       position={
-        Platform.OS === "ios"
+        Platform.OS === 'ios'
           ? Toast.positions.TOP + scaledVertical(160)
           : Toast.positions.TOP + scaledVertical(80)
       }
-      duration={2}
+      duration={2000}
       shadow={true}
       animation={true}
       hideOnPress={true}
-      backgroundColor={"white"}
+      backgroundColor={'white'}
       opacity={1.0}
       containerStyle={styles.container}
       onShown={onShown}
-      onHide={onHide}
-    >
+      onHide={onHide}>
       <View style={styles.innerContainer}>
         {withIcon && icon ? (
           <Image
             source={icon}
-            style={{ height: 25, width: 25 }}
-            resizeMode={"contain"}
+            style={{height: 25, width: 25}}
+            resizeMode={'contain'}
           />
         ) : null}
         <View
           style={{
             width: scaledHorizontal(295),
             marginRight: scaledHorizontal(10),
-          }}
-        >
-          <Text
+          }}>
+          <TextCustom
             size={14}
-            style={{ marginLeft: withIcon ? scaledHorizontal(10) : 0 }}
-            numberOfLines={2}
-          >
+            style={{marginLeft: withIcon ? scaledHorizontal(10) : 0}}
+            numberOfLines={2}>
             {text}
-          </Text>
+          </TextCustom>
         </View>
       </View>
     </Toast>
@@ -71,17 +67,17 @@ export default ToastComponent;
 
 const styles = StyleSheet.create({
   container: {
-    width: "85%",
-    backgroundColor: "white",
+    width: '85%',
+    backgroundColor: 'white',
     height: 60,
     borderRadius: 10,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   innerContainer: {
     paddingHorizontal: scaledHorizontal(20),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     // paddingTop: scaledVertical(12),
   },
 });
